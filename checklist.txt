@@ -15,7 +15,13 @@ sudo apt-get install nmap
 sudo apt-get install tmux
 sudo apt-get install ufw
 sudo apt-get install libpam-cracklib
-sudo apt-get remove (name)
+sudo apt-get install auditd
+#delete then redownload for easy points
+sudo apt-get purge openssh-server
+sudo apt-get install openssh-server
+#kill netcat (nc) because its bad
+sudo apt-get purge nc 
+#sudo apt-get remove (name)
 
 #set up firewall
 sudo ufw status verbose
@@ -103,19 +109,149 @@ sudo restart lightdm
 #password must have uppercase, lowercase, numbers, and symbols for 10 characters- write this down!
 
 #auditing
+#auditctl -e l
+#use this to modify policies with sudo nano /etc/audit/audit.conf
 
-#ssh configuration
+#ssh configuration- don't use til you figure these out
+#/etc/ssh/sshd_config edit
+#+Remove insecure Protocol 1
+#+PermitRootLogin no
+#+PermitEmptyPasswords no
+#+X11Forwarding no
+#+UsePAM yes
 
-#services
+#services- don't use til you figure these out 
+#sshd ([ssh])
+#telnet ([RDP])
+#vsftpd ([FTP Server])
+#snmp ([email server])
+#pop3 ([email server])
+#sendmail ([email server])
+#dovecot ([email server])
+#icmp ([router protocol])
 
-#general permission
+#general permission- find out where to put these
+#chmod -R 744 /home
+#chmod -R 444 /var/log
+#chmod 440 /etc/passwd
+#chmod 440 /etc/shadow
+#chmod 440 /etc/group
+chmod --- filename
+#Permission rights key:
+#Put a number for each - 0-7 is rights selection
+#- order is owner, group, everyone
+#7 - rwx
+#6 - rw
+#5 - rx
+#4 - r
+#3 - wx
+#2 - w
+#1 - x
+#0 - - (no rights at all)
 
-#account policy
+# check logs- figure out how these work before using
+#faillog -a ([check failed login attempts - displays all users])
+#/var/log/message
+#/var/log/auth.log
+#/var/log/kern.long
+#/var/log/cron.log
+#/var/log/maillog
+#/var/log/boot.log
+#/var/log/mysqld.log
+#/var/log/secure ([authentication log])
 
-# check logs
 
-#machine management
+#tmux piping- go through these commands if nessecary
+#How to do commands in tmux
+ctrl-b <command>
+ctrl-b is a prefix
+#Split windows into panes/ create panes
+ctrl-b % 
+#This creates a vertical split
+ctrl-b :
+split-window
+#This creates a horizontal split
+#The colon section allows you to use name commands
 
-#tmux piping
+#Create sessions
+tmux new -s (namesession)
+#Check on sessions
+tmux list-sessions
+#Reattach tmux back into regular programm
+tmux attach -t (namesession)
+tmux ls (or tmux list-sessions)
+tmux new -s (session-name)
+Ctrl-b d #Detach from session
+tmux attach -t [session name]
+tmux kill-session -t (session-name)
 
-#bash
+#Various commands in tmux
+Ctrl-b c #Create new window
+Ctrl-b d #Detach current client
+Ctrl-b l #Move to previously selected window
+Ctrl-b n #Move to the next window
+Ctrl-b p #Move to the previous window
+Ctrl-b & #Kill the current window
+Ctrl-b , #Rename the current window
+Ctrl-b q #Show pane numbers (used to switch between panes)
+Ctrl-b o #Switch to the next pane
+Ctrl-b ? #List all keybindings
+# moving between windows
+Ctrl-b n #(Move to the next window)
+Ctrl-b p #(Move to the previous window)
+Ctrl-b l #(Move to the previously selected window)
+Ctrl-b w #(List all windows / window numbers)
+Ctrl-b window number (Move to the specified window number, the default bindings are from 0 -- 9)
+# Tiling commands
+Ctrl-b % #(Split the window vertically)
+CTRL-b " #(Split window horizontally)
+Ctrl-b o #(Goto next pane)
+Ctrl-b q #(Show pane numbers, when the numbers show up type the key to go to that pane)
+Ctrl-b { #(Move the current pane left)
+Ctrl-b } #(Move the current pane right)
+# Make a pane its own window
+Ctrl-b : "break-pane"
+
+#bash- only use if you have to
+#Getting output 
+(Command) > (filename)
+wc -l < (text.file)
+#The word count command sends the # of lines in the file to the terminal display. 
+(text.file) | wc -1
+#Is the same thing put piped
+#If statements
+(file | command) && command
+(text.file | wc -l) && echo “Done!”
+() is the first command getting an output
+ && is if the () goes through and is good then have the second command go
+#Do at least one of the commands
+Command 1 || command 2
+#Variables
+variable=(anything you want)
+#Now this variable means something
+echo $variable
+#Output is variable
+#Variables with suffixes
+${variable}suffix
+${ten}th
+#Substitute command for a value
+echo “The line count is `wc -l < etc/group` of the etc/shadow file”
+#`` is the commands
+#Editing Bash scripts
+#Make the file
+sudo touch (filename)
+#Check if successful
+ls
+#Start editing
+chmod +x (filename)
+#Show something 
+./(filename)
+#Source
+. (filename)
+#Variables
+$# -- #number of args that our script was run with
+$0 -- #the filename of our script
+$1..$n -- #script arguments
+
+#account policy- is last because it could lock you out, but you need to find where to put the command in a nano file
+/etc/pam.d/common-auth > add "auth required pam_tally2.so deny=5 oerr=fail unlock_time=1800"
