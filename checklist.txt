@@ -1,1 +1,113 @@
-linux checklist
+ linux checklist
+
+#read the read me
+
+#forensics questions
+
+#get the updates
+#install packages for later use
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+sudo apt-get install htop
+sudo apt-get install nmap
+sudo apt-get install tmux
+sudo apt-get install ufw
+sudo apt-get install libpam-cracklib
+sudo apt-get remove (name)
+
+#set up firewall
+sudo ufw status verbose
+sudo ufw allow port 22
+sudo ufw enable
+sudo nano ufwfile.txt
+#write in nano ufwfile
+/etc/default/ufw-Firewall > edit IPV6=yes
+/etc/ufw/before.rules
+#save
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+#deny access to bad ports
+sudo ufw deny port (port#)
+#deny access to IP Address
+sudo ufw deny from IPADDRESS (specific IPADDRESS)
+#ufw loggins
+sudo ufw logging on
+sudo ufw logging high
+#ufw rules
+sudo ufw status numbered
+sudo ufw delete (port#)
+sudo ufw disable
+sudo ufw reset
+
+#file finding navigation command bank
+#mkdir            -This makes a directory
+#ls               -This changes the file
+#cd               -This changes the directory
+#pwd              -This shows you which file you're in
+#(filename) cwd   -Locate a file
+#nano (filename)  -makes nano file
+#rm -r (filename) -delete folder/directory
+#mv (filename) (directoryname) -move file to new directory
+#echo (text)      -repeat text
+#locating files     "*(filetype)"
+find . -name "*.txt"
+#locate .mp3 .mp4 .wav .jpg .jpeg .doc .pdf. .txt
+#find the bad files and then delete them
+#look at other file types if you see them
+
+#user accounts
+#find bad users and delete them
+sudo tail /etc/psswd
+sudo cat /etc/passwd
+userdel (username)
+#add user
+useradd (username)
+#move root for directory
+rm -r /home/username
+#edit the username of a user
+usermod -1 new_username old_username
+#disable then enable login
+usermod -L (username)
+usermod -U (username)
+#groups
+grep 'sudo' /etc/group
+addgroup (groupname)
+usermod -a -G (groupname) (username)
+
+#passwords
+#change user password
+sudo passwd (username)
+
+#guest accounts
+#open lightdm.conf in nano
+#type /etc/lightdm/lightdm.conf > add "allow-guest=false"
+#save and overwrite
+sudo restart lightdm
+
+#password policy
+# open up the nano this and do /etc/pam.d/common-password > add
+#find the line that ends in sha512 and click on the line below it
+#+remember=5
+#find the line that ends with pam_cracklib.so and click on the line below it
+#+uncredit=-1 lcredit=-1 dcredit=-1 ocredit=-1
+#do ctrl + w to find "PASS_" and then write
+#/etc/login.defs > defs edit
+#PASS_MAX_DAYS
+#auditing
+
+#ssh configuration
+
+#services
+
+#general permission
+
+#account policy
+
+# check logs
+
+#machine management
+
+#tmux piping
+
+#bash
