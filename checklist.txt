@@ -1,6 +1,7 @@
  linux checklist
 
 #read the read me
+#write down or take a picture of your user info and passwords
 
 #forensics questions
 
@@ -82,6 +83,7 @@ sudo passwd (username)
 #guest accounts
 #open lightdm.conf in nano
 #type /etc/lightdm/lightdm.conf > add "allow-guest=false"
+# if line 84 doesn't work do sudo nano/etc/pam.d/common-password
 #save and overwrite
 sudo restart lightdm
 
@@ -93,7 +95,13 @@ sudo restart lightdm
 #+uncredit=-1 lcredit=-1 dcredit=-1 ocredit=-1
 #do ctrl + w to find "PASS_" and then write
 #/etc/login.defs > defs edit
-#PASS_MAX_DAYS
+#+PASS_MAX_DAYS 90
+#+PASS_MIN_DAYS 10
+#+PASS_WARN_DAYS 7
+#find users for password change
+#sudo ''passwd (username)
+#password must have uppercase, lowercase, numbers, and symbols for 10 characters- write this down!
+
 #auditing
 
 #ssh configuration
