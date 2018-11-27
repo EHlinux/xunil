@@ -23,6 +23,26 @@ sudo apt-get install openssh-server
 sudo apt-get purge nc 
 #sudo apt-get remove (name)
 
+#Desktop updates
+#Click the Ubuntu button in
+#the menu bar and search for
+#Update Manager
+#2. Click Settings on the Update
+#Manager Screen
+#3. To set automatic updates, go
+#to the Updates Tab and
+#make sure “Automatically
+#check for updates” is set to
+#“Daily”
+#4. After applying the changes,
+#install any available updates
+#from the main Update
+#Manager window
+
+
+#Follow desktop firewall procedure here in slides 5 and 6
+https://s3.amazonaws.com/cpvii/Training+materials/Unit+Eight+-+Ubuntu+Security.pdf
+
 #set up firewall
 sudo ufw status verbose
 sudo ufw allow port 22
@@ -87,8 +107,11 @@ usermod -a -G (groupname) (username)
 sudo passwd (username)
 
 #guest accounts
+# sudo gedit /etc/lightdm/lightdm.conf
+# add the following to the end of the lightdm file
+# allow-guest=false
 #open lightdm.conf in nano
-#type /etc/lightdm/lightdm.conf > add "allow-guest=false"
+#type sudo /etc/lightdm/lightdm.conf > add "allow-guest=false"
 # if line 84 doesn't work do sudo nano/etc/pam.d/common-password
 #save and overwrite
 sudo restart lightdm
