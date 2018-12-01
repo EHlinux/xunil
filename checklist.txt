@@ -19,6 +19,7 @@ sudo apt-get install auditd
 #delete then redownload for easy points
 sudo apt-get purge openssh-server
 sudo apt-get install openssh-server
+sudo apt-get install bum in
 #kill netcat (nc) because its bad
 sudo apt-get purge nc 
 #sudo apt-get remove (name)
@@ -120,6 +121,29 @@ sudo restart lightdm
 # open up the nano this and do /etc/pam.d/common-password > add
 #find the line that ends in sha512 and click on the line below it
 #+remember=5
+#or use slide 12 of https://s3.amazonaws.com/cpvii/Training+materials/Unit+Eight+-+Ubuntu+Security.pdf
+#type gedit /etc/pam.d/common-password
+#Add “remember=5” to the end of the line that has “pam_unix.so” in it.
+#Add “minlen=8” to the end of the line that has “pam_unix.so” in it
+#Add “ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1” to the end of the line with “pam_cracklib.so” in it.
+#save and shut
+#Type gedit /etc/login.defs
+# This is a much longer file. To easily find the section to edit, type Ctrl+F and then “PASS_MAX_AGE”
+#Modify the following variables to the same recommended settings used in Windows:
+# Maximum Password Duration:
+# PASS_MAX_DAYS 90
+# Minimum Password Duration:
+# PASS_MIN_DAYS 10
+# Days Before Expiration to Warn Users
+#to Change Their Password:
+# PASS_WARN_AGE 7
+#save and shut
+#Type gedit /etc/pam.d/common-auth
+# This file allows you to set an account lockout policy
+# Add this line to the end of the file:
+#auth required pam_tally2.so deny=5 onerr=fail unlock_time=1800
+# Save the file and close it
+or
 #find the line that ends with pam_cracklib.so and click on the line below it
 #+uncredit=-1 lcredit=-1 dcredit=-1 ocredit=-1
 #do ctrl + w to find "PASS_" and then write
@@ -133,7 +157,9 @@ sudo restart lightdm
 
 #auditing
 #auditctl -e l
-#use this to modify policies with sudo nano /etc/audit/audit.conf
+#use this to modify policies with sudo nano gedit /etc/audit/audit.conf
+#once bum in is downloaded click on the audit boxes in the GUI 
+#questions about bum in check https://s3.amazonaws.com/cpvii/Training+materials/Unit+Eight+-+Ubuntu+Security.pdf slide 22
 
 #ssh configuration- don't use til you figure these out
 #/etc/ssh/sshd_config edit
