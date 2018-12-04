@@ -302,5 +302,9 @@ $# -- #number of args that our script was run with
 $0 -- #the filename of our script
 $1..$n -- #script arguments
 
+
+#Getting text to be extracted into an image/picture
+#
+
 #account policy- is last because it could lock you out, but you need to find where to put the command in a nano file
 /etc/pam.d/common-auth > add "auth required pam_tally2.so deny=5 oerr=fail unlock_time=1800"
