@@ -304,7 +304,14 @@ $1..$n -- #script arguments
 
 
 #Getting text to be extracted into an image/picture
-#
-
+#do the command
+#locate
+#this brings up a whole bunch of documents so sift through and find the file name you're looking for
+#type the command
+#sudo apt-get install p7zip-full p7zip-rar
+#then make a new folder in Desktop
+#go into the directories in the graphic display and find the file there 
+#click on the file and extract or copy it to the new folder in desktop
+#view the file
 #account policy- is last because it could lock you out, but you need to find where to put the command in a nano file
 /etc/pam.d/common-auth > add "auth required pam_tally2.so deny=5 oerr=fail unlock_time=1800"
