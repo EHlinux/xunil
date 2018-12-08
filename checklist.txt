@@ -155,7 +155,7 @@ or
 #sudo ''passwd (username)
 #password must have uppercase, lowercase, numbers, and symbols for 10 characters- write this down!
 
-#auditing
+#auditing- DO NOT DO
 #auditctl -e l
 #use this to modify policies with sudo nano gedit /etc/audit/audit.conf
 #once bum in is downloaded click on the audit boxes in the GUI 
